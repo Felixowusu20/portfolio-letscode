@@ -1,500 +1,303 @@
-import Link from "next/link";
-import Image from "next/image";
-import { portfolioList } from "@/data/portfolios";
+import { teamMembers } from "@/data/team";
+import TeamCard from "@/components/TeamCard";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
+import TypeWriter from "@/components/TypeWriter";
 
 const services = [
   {
-    icon: "bi-palette",
-    title: "UI Consistency",
+    title: "Web Development",
     description:
-      "One polished template style across every personal portfolio profile.",
+      "We build fast, responsive web applications using modern frameworks like React, Next.js, and Node.js — optimised for performance and real-world use.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+      </svg>
+    ),
   },
   {
-    icon: "bi-layout-text-window-reverse",
-    title: "Content System",
+    title: "API & Backend Systems",
     description:
-      "Profile content is centralized and easy to update for each person.",
-    featured: true,
+      "Reliable server-side architecture — REST APIs, database design, authentication, and integrations that power your applications behind the scenes.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/>
+        <line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+      </svg>
+    ),
   },
   {
-    icon: "bi-code-slash",
-    title: "Modern Implementation",
+    title: "UI/UX Implementation",
     description:
-      "Built with Next.js while preserving the exact Craftivo visual language.",
+      "Turning designs into pixel-perfect, accessible interfaces with smooth interactions, responsive layouts, and attention to every detail.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>
+      </svg>
+    ),
   },
   {
-    icon: "bi-diagram-3",
-    title: "Scalable Workflow",
+    title: "Mobile-First Design",
     description:
-      "Add more people without duplicating template files across the project.",
+      "Every project starts with mobile users in mind. We ensure your product works beautifully on phones, tablets, and desktops.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+      </svg>
+    ),
+  },
+  {
+    title: "DevOps & Deployment",
+    description:
+      "We handle the full deployment pipeline — from CI/CD setup to hosting configuration, monitoring, and production maintenance.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Technical Consulting",
+    description:
+      "Need guidance on architecture, stack selection, or scaling? We advise teams on making the right technical decisions early.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    ),
   },
 ];
 
-const categoryCount = new Set(
-  portfolioList.map((p) => p.category)
-).size;
-
 export default function HomePage() {
-  const year = new Date().getFullYear();
-
   return (
-    <>
-      {/* ── Header ── */}
-      <header
-        id="header"
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20">
-          <Link
-            href="/"
-            className="text-xl font-heading font-bold text-white tracking-tight"
-          >
-            LetsCode
-          </Link>
-
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            <a href="#hero" className="navlink active">Home</a>
-            <a href="#about" className="navlink">About</a>
-            <a href="#services" className="navlink">Approach</a>
-            <a href="#portfolio-tabs" className="navlink">Portfolios</a>
-            <div className="relative">
-              <button className="navlink flex items-center gap-1 dropdown-trigger">
-                Profiles
-                <i className="bi bi-chevron-down text-[10px] opacity-60"></i>
-              </button>
-              <ul className="nav-dropdown-list">
-                {portfolioList.map((p) => (
-                  <li key={p.slug}>
-                    <Link
-                      href={`/${p.slug}`}
-                      className="block px-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
-                    >
-                      {p.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <a href="#contact" className="navlink">Contact</a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <a
-              href="#portfolio-tabs"
-              className="hidden md:inline-flex btn-primary text-xs"
-            >
-              View Portfolios
-            </a>
-            <button
-              className="lg:hidden text-white p-2 mobile-nav-toggle"
-              aria-label="Toggle navigation"
-            >
-              <i className="bi bi-list text-2xl"></i>
-            </button>
-          </div>
+    <main>
+      {/* ── Hero ── */}
+      <section id="hero" className="hero">
+        <div className="hero__bg">
+          <div className="hero__bg-gradient" />
+          <div className="hero__grid" />
         </div>
-      </header>
-
-      {/* ── Mobile Nav Overlay ── */}
-      <div id="mobile-nav" className="lg:hidden">
-        <div className="flex justify-between items-center p-6">
-          <span className="text-lg font-heading font-bold text-white">
-            LetsCode
-          </span>
-          <button
-            id="mobile-nav-close"
-            className="text-white p-2"
-            aria-label="Close navigation"
-          >
-            <i className="bi bi-x text-3xl"></i>
-          </button>
-        </div>
-        <nav className="flex flex-col items-center gap-4 pt-8">
-          <a href="#hero" className="text-lg text-slate-300 hover:text-white transition-colors py-2">Home</a>
-          <a href="#about" className="text-lg text-slate-300 hover:text-white transition-colors py-2">About</a>
-          <a href="#services" className="text-lg text-slate-300 hover:text-white transition-colors py-2">Approach</a>
-          <a href="#portfolio-tabs" className="text-lg text-slate-300 hover:text-white transition-colors py-2">Portfolios</a>
-          <div className="text-center">
-            <button className="text-lg text-slate-300 hover:text-white flex items-center gap-2 py-2 mobile-dropdown-trigger">
-              Profiles
-              <i className="bi bi-chevron-down text-xs chevron-icon transition-transform duration-200"></i>
-            </button>
-            <div className="hidden mt-3 space-y-2">
-              {portfolioList.map((p) => (
-                <Link
-                  key={p.slug}
-                  href={`/${p.slug}`}
-                  className="block text-slate-400 hover:text-violet-400 transition-colors py-1"
-                >
-                  {p.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-          <a href="#contact" className="text-lg text-slate-300 hover:text-white transition-colors py-2">Contact</a>
-        </nav>
-      </div>
-
-      <main>
-        {/* ── Hero ── */}
-        <section
-          id="hero"
-          className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        >
-          <Image
-            src="/assets/img/profile/profile-bg-5.webp"
-            alt="LetsCode background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/50 to-slate-950" />
-          <div className="absolute inset-0 hero-glow" />
-          <div className="absolute inset-0 bg-grid opacity-40" />
-
-          <div
-            className="relative z-10 text-center px-4 max-w-4xl mx-auto"
-            data-aos="fade-up"
-          >
-            <span className="section-badge mb-6">
-              <i className="bi bi-stars"></i>
-              LetsCode Collective
-            </span>
-            <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-[1.1] tracking-tight">
-              We Build Scalable
-              <br />
-              <span className="gradient-text">Portfolio Experiences</span>
+        <div className="hero__content">
+          <AnimateOnScroll>
+            <span className="section-label">Software Development Company</span>
+          </AnimateOnScroll>
+          <AnimateOnScroll delay={80}>
+            <h1 className="hero__title text-balance">
+              We build software that{" "}
+              <span className="gradient-text">actually works</span>
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-slate-400">
-              We are a team of{" "}
-              <span
-                className="typed text-violet-300 font-medium"
-                data-typed-items="Designers, Developers, Mentors, Collaborators"
-              ></span>
-              <span className="typed-cursor" aria-hidden="true"></span>
+          </AnimateOnScroll>
+          <AnimateOnScroll delay={160}>
+            <p className="hero__subtitle">
+              LetsCode is a team of{" "}
+              <TypeWriter
+                words={["developers", "builders", "problem solvers", "engineers"]}
+                className="gradient-text"
+              />
             </p>
-          </div>
-        </section>
-
-        {/* ── About ── */}
-        <section id="about" className="py-20 lg:py-28 relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14" data-aos="fade-up">
-              <span className="section-badge">About LetsCode</span>
-              <h2 className="mt-4 text-3xl md:text-4xl font-heading font-bold text-white">
-                About LetsCode
-              </h2>
-              <p className="mt-4 max-w-2xl mx-auto text-slate-400 leading-relaxed">
-                A unique homepage that explains LetsCode first, then routes
-                visitors into each person&apos;s portfolio through tabs and profile
-                links.
-              </p>
+          </AnimateOnScroll>
+          <AnimateOnScroll delay={240}>
+            <div className="hero__actions">
+              <a href="#team" className="btn btn--primary">
+                Meet the Team
+              </a>
+              <a href="#services" className="btn btn--secondary">
+                Our Services
+              </a>
             </div>
-
-            <div className="grid lg:grid-cols-[360px_1fr] gap-8 items-start">
-              {/* Profile card */}
-              <div
-                className="glass-card p-6 text-center"
-                data-aos="zoom-in"
-                data-aos-delay="100"
-              >
-                <div className="relative w-24 h-24 mx-auto mb-4 rounded-2xl overflow-hidden ring-2 ring-violet-500/30 ring-offset-2 ring-offset-slate-950">
-                  <Image
-                    src="/assets/img/profile/profile-square-3.webp"
-                    fill
-                    className="object-cover"
-                    alt="LetsCode Team"
-                    sizes="96px"
-                  />
-                </div>
-                <div className="relative inline-block">
-                  <div className="status-dot absolute -top-0.5 -right-0.5"></div>
-                </div>
-                <h3 className="text-xl font-heading font-semibold text-white mt-2">
-                  LetsCode Team
-                </h3>
-                <p className="text-violet-400 text-sm mt-1">
-                  Portfolio Experience Studio
-                </p>
-
-                <div className="grid grid-cols-3 gap-4 my-6 py-5 border-y border-white/[0.06]">
-                  <div>
-                    <h4 className="text-2xl font-bold text-white">
-                      {portfolioList.length}
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-1">Profiles</p>
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-bold text-white">
-                      {categoryCount}
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-1">Tracks</p>
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-bold text-white">1</h4>
-                    <p className="text-xs text-slate-500 mt-1">Unified UI</p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a href="#portfolio-tabs" className="btn-primary flex-1">
-                    <i className="bi bi-grid"></i> Open Tabs
-                  </a>
-                  <a href="#contact" className="btn-secondary flex-1">
-                    <i className="bi bi-envelope"></i> Contact
-                  </a>
-                </div>
-              </div>
-
-              {/* Bio + details */}
-              <div className="space-y-8" data-aos="fade-left" data-aos-delay="150">
-                <div className="glass-card p-6 lg:p-8">
-                  <span className="section-badge text-[10px]">Landing Context</span>
-                  <h3 className="mt-4 text-xl md:text-2xl font-heading font-semibold text-white">
-                    Craftivo Style, LetsCode Story
-                  </h3>
-                  <p className="mt-4 text-slate-400 leading-relaxed">
-                    The animations, colors, typography, and spacing follow the
-                    original static template files.
-                  </p>
-                  <p className="mt-3 text-slate-400 leading-relaxed">
-                    Navbar tabs now include direct portfolio access for each
-                    person while preserving the same UI language.
-                  </p>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {[
-                    { icon: "bi-briefcase", label: "System", value: "Next.js Multi-Portfolio" },
-                    { icon: "bi-palette", label: "Design", value: "Template Matched" },
-                    { icon: "bi-people", label: "People", value: `${portfolioList.length} Profiles` },
-                    { icon: "bi-phone", label: "Layout", value: "Responsive Ready" },
-                  ].map((item) => (
-                    <div
-                      key={item.label}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-violet-500/20 transition-colors"
-                    >
-                      <div className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center flex-shrink-0">
-                        <i className={`bi ${item.icon} text-violet-400`}></i>
-                      </div>
-                      <div>
-                        <span className="text-xs text-slate-500 uppercase tracking-wider">
-                          {item.label}
-                        </span>
-                        <strong className="block text-sm text-white font-semibold mt-0.5">
-                          {item.value}
-                        </strong>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Services / Approach ── */}
-        <section id="services" className="py-20 lg:py-28 bg-slate-900/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14" data-aos="fade-up">
-              <span className="section-badge">Approach</span>
-              <h2 className="mt-4 text-3xl md:text-4xl font-heading font-bold text-white">
-                LetsCode Approach
-              </h2>
-              <p className="mt-4 max-w-2xl mx-auto text-slate-400 leading-relaxed">
-                Reusable system with the same static template visual direction
-                and behavior.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {services.map((service, index) => (
-                <div
-                  key={service.title}
-                  className={`relative glass-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-500/25 group ${
-                    service.featured
-                      ? "ring-1 ring-violet-500/30 bg-violet-500/[0.04]"
-                      : ""
-                  }`}
-                  data-aos="zoom-in"
-                  data-aos-delay={100 + index * 80}
-                >
-                  {service.featured && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-violet-600 text-white text-[10px] font-semibold uppercase tracking-wider">
-                      Featured
-                    </span>
-                  )}
-                  <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-5 group-hover:bg-violet-500/20 transition-colors">
-                    <i
-                      className={`bi ${service.icon} text-xl text-violet-400`}
-                    ></i>
-                  </div>
-                  <h4 className="text-base font-heading font-semibold text-white mb-2">
-                    {service.title}
-                  </h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">
-                    {service.description}
-                  </p>
-                  <a
-                    href="#portfolio-tabs"
-                    className="inline-flex items-center gap-1.5 mt-4 text-sm text-violet-400 hover:text-violet-300 transition-colors font-medium"
-                  >
-                    Explore
-                    <i className="bi bi-arrow-right text-xs"></i>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Portfolio Tabs ── */}
-        <section id="portfolio-tabs" className="py-20 lg:py-28">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14" data-aos="fade-up">
-              <span className="section-badge">Portfolio Tabs</span>
-              <h2 className="mt-4 text-3xl md:text-4xl font-heading font-bold text-white">
-                Open Each Person&apos;s Portfolio
-              </h2>
-              <p className="mt-4 max-w-2xl mx-auto text-slate-400 leading-relaxed">
-                Use these tabs or the navbar dropdown to open each dedicated
-                profile page.
-              </p>
-            </div>
-
-            {/* Tabs bar */}
-            <div
-              className="flex flex-wrap justify-center gap-2 mb-10"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              {portfolioList.map((p, i) => (
-                <Link
-                  key={p.slug}
-                  href={`/${p.slug}`}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    i === 0
-                      ? "bg-violet-600 text-white shadow-lg shadow-violet-600/25"
-                      : "bg-white/[0.04] text-slate-400 hover:text-white hover:bg-white/[0.08] border border-white/[0.06]"
-                  }`}
-                >
-                  {p.name}
-                </Link>
-              ))}
-            </div>
-
-            {/* Person cards */}
-            <div
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              {portfolioList.map((p) => (
-                <div key={p.slug} className="person-tab-card">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-violet-500/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-violet-400 font-bold text-sm">
-                        {p.name.charAt(0)}
-                      </span>
-                    </div>
-                    <h4 className="text-base font-heading font-semibold text-white">
-                      {p.name}
-                    </h4>
-                  </div>
-                  <p className="text-sm text-slate-400 leading-relaxed mb-4">
-                    {p.headline}
-                  </p>
-                  <Link
-                    href={`/${p.slug}`}
-                    className="inline-flex items-center gap-2 text-sm text-violet-400 hover:text-violet-300 font-semibold transition-colors"
-                  >
-                    View Portfolio
-                    <i className="bi bi-arrow-right text-xs"></i>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Contact ── */}
-        <section id="contact" className="py-20 lg:py-28 bg-slate-900/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14" data-aos="fade-up">
-              <span className="section-badge">Contact</span>
-              <h2 className="mt-4 text-3xl md:text-4xl font-heading font-bold text-white">
-                Contact
-              </h2>
-              <p className="mt-4 max-w-2xl mx-auto text-slate-400 leading-relaxed">
-                Reach out for profile updates, onboarding new people, or UI
-                customization.
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="space-y-4" data-aos="fade-right">
-                {[
-                  { icon: "bi-geo-alt", title: "Address", value: "Kumasi, Ghana" },
-                  { icon: "bi-envelope", title: "Email", value: "letscode@example.com" },
-                ].map((info) => (
-                  <div
-                    key={info.title}
-                    className="flex items-center gap-4 p-5 rounded-xl bg-white/[0.02] border border-white/[0.04]"
-                  >
-                    <div className="w-11 h-11 rounded-xl bg-violet-500/10 flex items-center justify-center flex-shrink-0">
-                      <i className={`bi ${info.icon} text-violet-400 text-lg`}></i>
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-semibold text-white">
-                        {info.title}
-                      </h3>
-                      <p className="text-sm text-slate-400 mt-0.5">
-                        {info.value}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div
-                className="glass-card p-6 lg:p-8 flex flex-col items-center justify-center text-center"
-                data-aos="fade-left"
-              >
-                <i className="bi bi-person-lines-fill text-4xl text-violet-400 mb-4"></i>
-                <p className="text-slate-400 leading-relaxed mb-6">
-                  Visit our portfolio tabs to explore each team member&apos;s
-                  profile.
-                </p>
-                <a href="#portfolio-tabs" className="btn-primary">
-                  <i className="bi bi-grid"></i>
-                  View Portfolios
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* ── Footer ── */}
-      <footer className="border-t border-white/[0.05] py-8">
-        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-slate-500">
-          © {year}{" "}
-          <strong className="text-slate-300 font-semibold">LetsCode</strong> All
-          Rights Reserved
+          </AnimateOnScroll>
         </div>
-      </footer>
+      </section>
 
-      {/* ── Scroll to top ── */}
-      <button id="scroll-top" aria-label="Scroll to top">
-        <i className="bi bi-arrow-up-short text-xl"></i>
-      </button>
+      {/* ── About ── */}
+      <section id="about" className="section section--alt">
+        <div className="section__inner">
+          <AnimateOnScroll>
+            <div className="section__header">
+              <span className="section-label">About Us</span>
+              <h2 className="section__title">A small team doing real work</h2>
+              <p className="section__desc">
+                We are not a massive agency. We are a focused group of developers
+                who write clean code, communicate honestly, and ship products that
+                people actually use.
+              </p>
+            </div>
+          </AnimateOnScroll>
 
-      {/* ── Preloader ── */}
-      <div id="preloader">
-        <div className="w-8 h-8 border-2 border-violet-500/30 border-t-violet-500 rounded-full animate-spin"></div>
-      </div>
-    </>
+          <div className="about-grid">
+            <AnimateOnScroll>
+              <div className="about-text">
+                <p>
+                  LetsCode started as a group of developers who kept finding
+                  themselves working on the same kinds of problems — building
+                  web apps, setting up backends, cleaning up codebases that
+                  needed structure. So we made it official.
+                </p>
+                <p>
+                  Based in Ghana with collaborators across borders, we work
+                  across time zones and tech stacks. Our approach is
+                  straightforward: understand the problem, plan the solution,
+                  build it well, and maintain it properly.
+                </p>
+                <p>
+                  Every developer on our team has their own portfolio page on
+                  this site. We believe in transparency — you should know
+                  exactly who is working on your project and what they bring
+                  to the table.
+                </p>
+              </div>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll delay={100}>
+              <div className="about-stats">
+                <div className="about-stat">
+                  <div className="about-stat__value">{teamMembers.length}</div>
+                  <div className="about-stat__label">Developers</div>
+                </div>
+                <div className="about-stat">
+                  <div className="about-stat__value">10+</div>
+                  <div className="about-stat__label">Projects Delivered</div>
+                </div>
+                <div className="about-stat">
+                  <div className="about-stat__value">3</div>
+                  <div className="about-stat__label">Countries</div>
+                </div>
+                <div className="about-stat">
+                  <div className="about-stat__value">2024</div>
+                  <div className="about-stat__label">Founded</div>
+                </div>
+              </div>
+            </AnimateOnScroll>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Services ── */}
+      <section id="services" className="section">
+        <div className="section__inner">
+          <AnimateOnScroll>
+            <div className="section__header">
+              <span className="section-label">What We Do</span>
+              <h2 className="section__title">Services</h2>
+              <p className="section__desc">
+                From frontend interfaces to backend infrastructure — we handle
+                the full stack so you can focus on your business.
+              </p>
+            </div>
+          </AnimateOnScroll>
+
+          <div className="services-grid">
+            {services.map((service, i) => (
+              <AnimateOnScroll key={service.title} delay={i * 60}>
+                <div className="service-card">
+                  <div className="service-card__icon">{service.icon}</div>
+                  <h3 className="service-card__title">{service.title}</h3>
+                  <p className="service-card__desc">{service.description}</p>
+                </div>
+              </AnimateOnScroll>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Team ── */}
+      <section id="team" className="section section--alt">
+        <div className="section__inner">
+          <AnimateOnScroll>
+            <div className="section__header">
+              <span className="section-label">Our People</span>
+              <h2 className="section__title">Meet the team</h2>
+              <p className="section__desc">
+                Every developer has their own portfolio. Click on anyone to see
+                their work, skills, and projects in detail.
+              </p>
+            </div>
+          </AnimateOnScroll>
+
+          <div className="team-grid">
+            {teamMembers.map((member, i) => (
+              <AnimateOnScroll key={member.slug} delay={i * 80}>
+                <TeamCard member={member} index={i} />
+              </AnimateOnScroll>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Contact ── */}
+      <section id="contact" className="section">
+        <div className="section__inner">
+          <AnimateOnScroll>
+            <div className="section__header">
+              <span className="section-label">Get in Touch</span>
+              <h2 className="section__title">Let&apos;s work together</h2>
+              <p className="section__desc">
+                Have a project in mind? Reach out and let&apos;s talk about what
+                we can build for you.
+              </p>
+            </div>
+          </AnimateOnScroll>
+
+          <div className="contact-grid">
+            <AnimateOnScroll>
+              <a href="mailto:letscode@example.com" className="contact-item">
+                <div className="contact-item__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <path d="M22 4l-10 8L2 4"/>
+                  </svg>
+                </div>
+                <div>
+                  <span className="contact-item__label">Email</span>
+                  <span className="contact-item__value">letscode@example.com</span>
+                </div>
+              </a>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll delay={60}>
+              <div className="contact-item">
+                <div className="contact-item__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div>
+                  <span className="contact-item__label">Location</span>
+                  <span className="contact-item__value">Kumasi, Ghana</span>
+                </div>
+              </div>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll delay={120}>
+              <a href="https://github.com" target="_blank" rel="noreferrer" className="contact-item">
+                <div className="contact-item__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                </div>
+                <div>
+                  <span className="contact-item__label">GitHub</span>
+                  <span className="contact-item__value">LetsCode</span>
+                </div>
+              </a>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll delay={180}>
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="contact-item">
+                <div className="contact-item__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </div>
+                <div>
+                  <span className="contact-item__label">LinkedIn</span>
+                  <span className="contact-item__value">LetsCode</span>
+                </div>
+              </a>
+            </AnimateOnScroll>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

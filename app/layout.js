@@ -1,5 +1,7 @@
-import Script from "next/script";
 import { Inter, Space_Grotesk } from "next/font/google";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,9 +17,14 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "LetsCode Multi Portfolio",
+  title: "LetsCode — Software Development Company",
   description:
-    "LetsCode portfolio hub — a scalable multi-profile system built with Next.js",
+    "LetsCode is a software company building modern web applications, APIs, and digital products. Meet our team of developers.",
+  openGraph: {
+    title: "LetsCode — Software Development Company",
+    description: "We build modern software that works. Meet the team behind LetsCode.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -26,28 +33,12 @@ export default function RootLayout({ children }) {
       <head>
         <link href="/assets/img/favicon.png" rel="icon" />
         <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
-        <link
-          href="/assets/vendor/bootstrap-icons/bootstrap-icons.min.css"
-          rel="stylesheet"
-        />
-        <link href="/assets/vendor/aos/aos.css" rel="stylesheet" />
       </head>
       <body className="font-sans">
+        <Navbar />
         {children}
-
-        <Script
-          src="/assets/vendor/aos/aos.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="/assets/vendor/typed.js/typed.umd.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="/assets/vendor/waypoints/noframework.waypoints.js"
-          strategy="afterInteractive"
-        />
-        <Script src="/assets/js/main.js" strategy="afterInteractive" />
+        <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

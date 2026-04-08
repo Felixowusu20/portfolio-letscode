@@ -1,23 +1,26 @@
-# LetsCode Portfolio Hub (Next.js)
+# LetsCode — Software Development Company
 
-This repository now includes a scalable Next.js implementation for managing multiple personal portfolios from one shared codebase.
+Company website for LetsCode, built with Next.js 15. Each developer on the team has their own portfolio page.
 
-## What this setup gives you
+## Structure
 
-- Reusable UI components for hero, about, services, and contact sections.
-- One data source file for all profiles: `data/portfolios.js`.
-- One route per person: `/{slug}`.
-- Fast updates: edit profile content in one place without duplicating HTML files.
-
-## Profiles included
-
-- Bright Adu Kwarteng Snr
-- Owusu Kenneth
-- Success Adzorze
-- Abhisumat Kundu
-- Martin Okantey Jairus Nii Okaitey
-- Enock Asante
-- Felix Owusu
+```
+app/
+  layout.js              → Shared layout (Navbar + Footer)
+  page.js                → Homepage (company site)
+  not-found.js           → 404 page
+  globals.css            → Design system
+  team/[slug]/page.js    → Individual developer portfolios
+components/
+  Navbar.js              → Navigation (client component)
+  Footer.js              → Footer
+  TeamCard.js            → Developer card
+  AnimateOnScroll.js     → Scroll animation wrapper
+  TypeWriter.js          → Typing effect
+  ScrollToTop.js         → Scroll-to-top button
+data/
+  team.js                → Developer profiles
+```
 
 ## Run locally
 
@@ -28,29 +31,19 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+## Adding a new developer
+
+Add an entry to `data/team.js` with:
+- `slug` — URL path (e.g. `"jane-doe"` → `/team/jane-doe`)
+- `name`, `role`, `location`, `linkedin`, `bio`
+- `expertise` — list of skill areas
+- `stack` — technologies used
+- `projects` — array of `{ title, description }`
+- `image` — path to profile photo in `public/images/profiles/`
+
 ## Build for production
 
 ```bash
 npm run build
-npm run start
+npm start
 ```
-
-## Editing content
-
-Update profile details in `data/portfolios.js`:
-
-- `name`, `headline`, `intro`
-- `about` paragraphs
-- `services`
-- `skills`
-- `projects`
-- image links
-
-## Image paths
-
-All profile and cover images are now expected in:
-
-- `public/images/profiles`
-- `public/images/covers`
-
-Replace those files with final person images while keeping the same names, or update the paths in `data/portfolios.js`.

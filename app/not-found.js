@@ -2,21 +2,17 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
-      <div className="glass-card w-full max-w-md p-8 md:p-12 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-violet-500/10 flex items-center justify-center mx-auto mb-6">
-          <i className="bi bi-exclamation-triangle text-3xl text-violet-400"></i>
-        </div>
-        <span className="section-badge">404</span>
-        <h1 className="mt-4 text-3xl md:text-4xl font-heading font-bold text-white">
-          Profile not found
+    <main className="section" style={{ minHeight: "80vh", display: "flex", alignItems: "center" }}>
+      <div className="section__inner" style={{ textAlign: "center", maxWidth: 480, margin: "0 auto" }}>
+        <div className="section-label" style={{ marginBottom: "1.5rem" }}>404</div>
+        <h1 className="section__title" style={{ fontSize: "2rem" }}>
+          Page not found
         </h1>
-        <p className="mt-4 text-slate-400 leading-relaxed">
-          The portfolio you requested is not currently configured.
+        <p className="section__desc" style={{ marginBottom: "2rem" }}>
+          The page you are looking for does not exist or has been moved.
         </p>
-        <Link href="/" className="btn-primary mt-6">
-          <i className="bi bi-house"></i>
-          Return to portfolio hub
+        <Link href="/" className="btn btn--primary">
+          ← Back to Home
         </Link>
       </div>
     </main>
