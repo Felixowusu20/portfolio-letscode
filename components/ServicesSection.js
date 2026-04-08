@@ -1,32 +1,50 @@
 export function ServicesSection({ portfolio }) {
   return (
-    <section className="section-block" id="services">
-      <p className="eyebrow">Services</p>
-      <h2>What {portfolio.name.split(" ")[0]} Offers</h2>
+    <section className="template-panel mb-4 p-6 md:p-7" id="services">
+      <p className="template-subtitle">Services</p>
+      <h2 className="mt-2 font-heading text-2xl font-semibold text-white md:text-3xl">
+        What {portfolio.name.split(" ")[0]} Offers
+      </h2>
 
-      <div className="services-grid">
+      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {portfolio.services.map((service) => (
-          <article className="service-card" key={service.title}>
-            <h3>{service.title}</h3>
-            <p>{service.description}</p>
+          <article
+            className="rounded-xl border border-border/80 bg-background/35 p-4 transition hover:border-primary/45"
+            key={service.title}
+          >
+            <h3 className="font-heading text-lg font-semibold text-white">{service.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {service.description}
+            </p>
           </article>
         ))}
       </div>
 
-      <div className="skills-wrap" aria-label="Core skills">
+      <div className="mt-5 flex flex-wrap gap-2" aria-label="Core skills">
         {portfolio.skills.map((skill) => (
-          <span className="skill-chip" key={skill}>
+          <span
+            className="rounded-full border border-primary/45 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+            key={skill}
+          >
             {skill}
           </span>
         ))}
       </div>
 
-      <h2 style={{ marginTop: "1.2rem" }}>Portfolio Feature Ideas</h2>
-      <div className="project-grid">
+      <h3 className="mt-8 font-heading text-xl font-semibold text-white md:text-2xl">
+        Portfolio Feature Ideas
+      </h3>
+
+      <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {portfolio.projects.map((project) => (
-          <article className="project-card" key={project.title}>
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
+          <article
+            className="rounded-xl border border-border/80 bg-background/35 p-4 transition hover:border-primary/45"
+            key={project.title}
+          >
+            <h3 className="font-heading text-lg font-semibold text-white">{project.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {project.description}
+            </p>
           </article>
         ))}
       </div>

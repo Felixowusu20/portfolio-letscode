@@ -33,13 +33,21 @@ export default function PortfolioPage({ params }) {
   }
 
   return (
-    <main className="portfolio-page">
-      <header className="top-bar">
-        <Link href="/">All Portfolios</Link>
+    <main className="container py-6 md:py-9">
+      <header className="template-panel mb-4 flex flex-wrap items-center justify-between gap-3 p-3 md:p-4">
+        <Link
+          href="/"
+          className="inline-flex items-center rounded-md border border-border px-3 py-2 text-sm font-semibold text-white transition hover:bg-secondary/70"
+        >
+          All Portfolios
+        </Link>
         <a href={portfolio.linkedin} target="_blank" rel="noreferrer">
-          LinkedIn Profile
+          <span className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
+            LinkedIn Profile
+          </span>
         </a>
       </header>
+
       <PortfolioHero portfolio={portfolio} />
       <AboutSection portfolio={portfolio} />
       <ServicesSection portfolio={portfolio} />
