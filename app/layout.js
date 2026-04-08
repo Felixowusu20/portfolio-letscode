@@ -1,40 +1,52 @@
 import Script from "next/script";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+});
 
 export const metadata = {
   title: "LetsCode Multi Portfolio",
-  description: "LetsCode portfolio hub built in Next.js with the original Craftivo UI style"
+  description:
+    "LetsCode portfolio hub — a scalable multi-profile system built with Next.js",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <link href="/assets/img/favicon.png" rel="icon" />
         <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
-
-        <link href="https://fonts.googleapis.com" rel="preconnect" />
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Raleway:wght@400;500;600;700&family=Mulish:wght@400;600;700&display=swap"
+          href="/assets/vendor/bootstrap-icons/bootstrap-icons.min.css"
           rel="stylesheet"
         />
-
-        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet" />
         <link href="/assets/vendor/aos/aos.css" rel="stylesheet" />
-        <link href="/assets/css/main.css" rel="stylesheet" />
       </head>
-      <body className="index-page">
+      <body className="font-sans">
         {children}
 
-        <Script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
-        <Script src="/assets/vendor/aos/aos.js" strategy="afterInteractive" />
-        <Script src="/assets/vendor/typed.js/typed.umd.js" strategy="afterInteractive" />
-        <Script src="/assets/vendor/waypoints/noframework.waypoints.js" strategy="afterInteractive" />
+        <Script
+          src="/assets/vendor/aos/aos.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="/assets/vendor/typed.js/typed.umd.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="/assets/vendor/waypoints/noframework.waypoints.js"
+          strategy="afterInteractive"
+        />
         <Script src="/assets/js/main.js" strategy="afterInteractive" />
       </body>
     </html>
