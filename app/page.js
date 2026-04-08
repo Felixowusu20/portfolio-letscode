@@ -1,305 +1,279 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Layers, ShieldCheck, Sparkles, Users } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { portfolioList } from "@/data/portfolios";
 
-const categoryTabs = [
-  { value: "all", label: "All" },
-  { value: "technology", label: "Technology" },
-  { value: "health", label: "Health" },
-  { value: "operations", label: "Operations" },
-  { value: "science", label: "Science" },
-  { value: "creative", label: "Creative" }
-];
-
-const categoryLabels = {
-  technology: "Technology",
-  health: "Health",
-  operations: "Operations",
-  science: "Science",
-  creative: "Creative"
-};
-
-const importantItems = [
+const services = [
   {
-    title: "Template-Matched Visual Language",
-    description:
-      "The dark contrast palette, typography rhythm, and section layering are intentionally aligned with the original HTML style.",
-    icon: Layers
+    icon: "bi-palette",
+    title: "UI Consistency",
+    description: "One polished template style across every personal portfolio profile."
   },
   {
-    title: "Single Data Source",
-    description:
-      "Every profile is powered from one central data file so updating content never means editing multiple pages manually.",
-    icon: ShieldCheck
+    icon: "bi-layout-text-window-reverse",
+    title: "Content System",
+    description: "Profile content is centralized and easy to update for each person.",
+    featured: true
   },
   {
-    title: "Team-Friendly Scaling",
-    description:
-      "The architecture supports more people, faster content updates, and cleaner handoffs without duplicating template files.",
-    icon: Users
+    icon: "bi-code-slash",
+    title: "Modern Implementation",
+    description: "Built with Next.js while preserving the exact Craftivo visual language."
+  },
+  {
+    icon: "bi-diagram-3",
+    title: "Scalable Workflow",
+    description: "Add more people without duplicating template files across the project."
   }
 ];
 
-const workflow = [
-  "Collect person details and image assets once.",
-  "Update content in one profile data object.",
-  "Preview immediately through a dedicated route."
-];
-
-function getProfilesByCategory(category) {
-  if (category === "all") {
-    return portfolioList;
-  }
-
-  return portfolioList.filter((portfolio) => portfolio.category === category);
-}
-
-function PortfolioGrid({ category }) {
-  const profiles = getProfilesByCategory(category);
-
-  return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      {profiles.map((portfolio) => (
-        <Card
-          className="group flex h-full flex-col overflow-hidden border-border/80 bg-card/80 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_20px_48px_-28px_rgba(255,77,79,0.6)]"
-          key={portfolio.slug}
-        >
-          <div className="relative aspect-[4/3] overflow-hidden border-b border-border/80">
-            <Image
-              src={portfolio.image}
-              alt={portfolio.name}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-              className="object-cover transition duration-500 group-hover:scale-105"
-            />
-          </div>
-          <CardHeader className="space-y-3">
-            <div className="flex items-center justify-between gap-2">
-              <Badge variant="outline" className="border-primary/50 text-primary">
-                {categoryLabels[portfolio.category]}
-              </Badge>
-              <span className="text-xs text-muted-foreground">{portfolio.location}</span>
-            </div>
-            <CardTitle className="font-heading text-xl text-white">{portfolio.name}</CardTitle>
-            <CardDescription className="text-muted-foreground">
-              {portfolio.headline}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="mt-auto flex items-center justify-between gap-3 pt-0">
-            <a
-              href={portfolio.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="text-sm text-muted-foreground transition hover:text-white"
-            >
-              LinkedIn
-            </a>
-            <Link
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
-              href={`/${portfolio.slug}`}
-            >
-              Open Portfolio
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
-}
+const categoryCount = new Set(portfolioList.map((portfolio) => portfolio.category)).size;
 
 export default function HomePage() {
   return (
-    <main className="relative">
-      <header className="sticky top-0 z-40 border-b border-border/80 bg-background/80 backdrop-blur-md">
-        <div className="container flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="font-heading text-xl text-white md:text-2xl">
-            Craftivo Collective
-          </Link>
+    <>
+      <header id="header" className="header d-flex align-items-center fixed-top">
+        <div className="container-fluid container-xl position-relative d-flex align-items-center">
+          <a href="/" className="logo d-flex align-items-center me-auto">
+            <h1 className="sitename">LetsCode</h1>
+          </a>
 
-          <nav className="hidden items-center gap-6 font-nav text-sm text-muted-foreground md:flex">
-            <Link href="#home" className="transition hover:text-white">
-              Home
-            </Link>
-            <Link href="#highlights" className="transition hover:text-white">
-              Highlights
-            </Link>
-            <Link href="#portfolios" className="transition hover:text-white">
-              Portfolios
-            </Link>
+          <nav id="navmenu" className="navmenu">
+            <ul>
+              <li>
+                <a href="#hero" className="active">Home</a>
+              </li>
+              <li>
+                <a href="#about">LetsCode</a>
+              </li>
+              <li>
+                <a href="#services">Approach</a>
+              </li>
+              <li>
+                <a href="#portfolio-tabs">Portfolio Tabs</a>
+              </li>
+              <li className="dropdown">
+                <a href="#">
+                  <span>Portfolios</span>
+                  <i className="bi bi-chevron-down toggle-dropdown"></i>
+                </a>
+                <ul>
+                  {portfolioList.map((portfolio) => (
+                    <li key={portfolio.slug}>
+                      <a href={`/${portfolio.slug}`}>{portfolio.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+            </ul>
+            <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
 
-          <Link
-            href="#portfolios"
-            className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
-          >
-            Browse
-          </Link>
+          <a className="btn-getstarted" href="#portfolio-tabs">View Tabs</a>
         </div>
       </header>
 
-      <section className="container py-10 md:py-14" id="home">
-        <div className="template-panel relative overflow-hidden p-6 md:p-10">
-          <div className="grid-mask pointer-events-none absolute inset-0 bg-grid-fade opacity-20" />
+      <main className="main">
+        <section id="hero" className="hero section dark-background">
+          <img src="/assets/img/profile/profile-bg-5.webp" alt="LetsCode background" data-aos="fade-in" />
 
-          <div className="relative z-10 grid gap-7 lg:grid-cols-[1.08fr,0.92fr] lg:items-center">
-            <div className="space-y-5">
-              <p className="template-subtitle">LetsCode Portfolio System</p>
-              <h1 className="font-heading text-4xl font-semibold leading-tight text-white md:text-5xl">
-                Same template spirit, modern Next.js workflow.
-              </h1>
-              <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-                This home page now introduces the project first with context and
-                key strengths, then provides a dedicated tabbed section to explore
-                each individual portfolio.
-              </p>
-
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
-                  href="#portfolios"
-                >
-                  View Profiles
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-semibold text-white transition hover:bg-secondary/70"
-                  href="#highlights"
-                >
-                  Important Details
-                </Link>
-              </div>
-
-              <div className="grid max-w-xl grid-cols-3 gap-3 pt-1 text-center">
-                <div className="rounded-lg border border-border/80 bg-background/40 px-3 py-3">
-                  <p className="font-heading text-xl text-white">7</p>
-                  <p className="text-xs text-muted-foreground">Live Profiles</p>
-                </div>
-                <div className="rounded-lg border border-border/80 bg-background/40 px-3 py-3">
-                  <p className="font-heading text-xl text-white">1</p>
-                  <p className="text-xs text-muted-foreground">Shared System</p>
-                </div>
-                <div className="rounded-lg border border-border/80 bg-background/40 px-3 py-3">
-                  <p className="font-heading text-xl text-white">100%</p>
-                  <p className="text-xs text-muted-foreground">Reusable</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="relative overflow-hidden rounded-2xl border border-border/80">
-                <Image
-                  src="/images/covers/cover-7.webp"
-                  alt="Portfolio showcase"
-                  width={900}
-                  height={560}
-                  className="h-[280px] w-full object-cover"
-                  priority
-                />
-                <div className="hero-overlay absolute inset-0" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <Badge variant="secondary" className="bg-black/55 text-white">
-                    Template-inspired dark UI
-                  </Badge>
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-border/80 bg-background/45 p-4">
-                <p className="font-nav text-xs uppercase tracking-[0.18em] text-primary">
-                  Focus Tracks
+          <div className="container" data-aos="fade-up" data-aos-delay="100">
+            <div className="row justify-content-center">
+              <div className="col-lg-9 text-center">
+                <span className="letscode-hero-badge mb-4">
+                  <i className="bi bi-stars"></i>
+                  LetsCode Collective
+                </span>
+                <h2>We Build Scalable Portfolio Experiences</h2>
+                <p>
+                  We are a team of <span className="typed" data-typed-items="Designers, Developers, Mentors, Collaborators"></span>
+                  <span className="typed-cursor" aria-hidden="true"></span>
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Technology, Health, Operations, Science, and Creative profiles
-                  are all organized with one consistent presentation standard.
-                </p>
+                <div className="social-links">
+                  <a href="https://github.com" target="_blank" rel="noreferrer"><i className="bi bi-github"></i></a>
+                  <a href="https://linkedin.com" target="_blank" rel="noreferrer"><i className="bi bi-linkedin"></i></a>
+                  <a href="https://x.com" target="_blank" rel="noreferrer"><i className="bi bi-twitter-x"></i></a>
+                  <a href="#portfolio-tabs"><i className="bi bi-person-lines-fill"></i></a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="container pb-4" id="highlights">
-        <div className="mb-5 space-y-2">
-          <p className="template-subtitle">Important Things</p>
-          <h2 className="template-title">What Comes Before Portfolio Browsing</h2>
-          <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Visitors first understand your direction, system quality, and delivery
-            approach, then move into a dedicated tab to inspect each profile.
-          </p>
-        </div>
+        <section id="about" className="about section">
+          <div className="container section-title" data-aos="fade-up">
+            <span className="subtitle">About LetsCode</span>
+            <h2>About LetsCode</h2>
+            <p>
+              This is a unique homepage that explains LetsCode first, then routes visitors into each person portfolio
+              through navbar tabs and profile links.
+            </p>
+          </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          {importantItems.map((item) => {
-            const Icon = item.icon;
-
-            return (
-              <Card key={item.title} className="border-border/80 bg-card/80">
-                <CardHeader>
-                  <div className="mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
-                    <Icon className="h-5 w-5 text-primary" />
+          <div className="container" data-aos="fade-up" data-aos-delay="100">
+            <div className="row gy-5">
+              <div className="col-lg-4" data-aos="zoom-in" data-aos-delay="150">
+                <div className="profile-card">
+                  <div className="profile-header">
+                    <div className="profile-avatar">
+                      <img src="/assets/img/profile/profile-square-3.webp" className="img-fluid" alt="LetsCode" />
+                      <div className="status-indicator"></div>
+                    </div>
+                    <h3>LetsCode Team</h3>
+                    <span className="role">Portfolio Experience Studio</span>
                   </div>
-                  <CardTitle className="font-heading text-lg text-white">{item.title}</CardTitle>
-                  <CardDescription className="text-muted-foreground">
-                    {item.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
 
-        <div className="template-panel mt-5 p-5 md:p-6">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
-            <h3 className="font-heading text-xl text-white">Delivery Workflow</h3>
-          </div>
-          <div className="mt-4 grid gap-3 md:grid-cols-3">
-            {workflow.map((step) => (
-              <div
-                key={step}
-                className="rounded-lg border border-border/80 bg-background/35 px-4 py-3 text-sm text-muted-foreground"
-              >
-                {step}
+                  <div className="profile-stats">
+                    <div className="stat-item">
+                      <h4>{portfolioList.length}</h4>
+                      <p>Profiles</p>
+                    </div>
+                    <div className="stat-item">
+                      <h4>{categoryCount}</h4>
+                      <p>Tracks</p>
+                    </div>
+                    <div className="stat-item">
+                      <h4>1</h4>
+                      <p>Unified UI</p>
+                    </div>
+                  </div>
+
+                  <div className="profile-actions">
+                    <a href="#portfolio-tabs" className="btn-primary"><i className="bi bi-grid"></i> Open Tabs</a>
+                    <a href="#contact" className="btn-secondary"><i className="bi bi-envelope"></i> Contact</a>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      <section className="container py-9 md:py-12" id="portfolios">
-        <div className="mb-5 space-y-2">
-          <p className="template-subtitle">Portfolio Directory</p>
-          <h2 className="template-title">Browse The Various Portfolios</h2>
-          <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Switch tabs to view profile groups, then open any person&apos;s dedicated
-            portfolio page.
+              <div className="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+                <div className="content-wrapper">
+                  <div className="bio-section">
+                    <div className="section-tag">Landing Context</div>
+                    <h2>Craftivo Style, LetsCode Story</h2>
+                    <p>
+                      The animations, colors, typography, and spacing follow the original static template files.
+                    </p>
+                    <p>
+                      Navbar tabs now include direct portfolio access for each person while preserving the same UI language.
+                    </p>
+                  </div>
+
+                  <div className="details-grid">
+                    <div className="detail-item"><i className="bi bi-briefcase"></i><div className="detail-content"><span>System</span><strong>Next.js Multi-Portfolio</strong></div></div>
+                    <div className="detail-item"><i className="bi bi-palette"></i><div className="detail-content"><span>Design</span><strong>Template Matched</strong></div></div>
+                    <div className="detail-item"><i className="bi bi-people"></i><div className="detail-content"><span>People</span><strong>{portfolioList.length} Profiles</strong></div></div>
+                    <div className="detail-item"><i className="bi bi-phone"></i><div className="detail-content"><span>Layout</span><strong>Responsive Ready</strong></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="services" className="services section">
+          <div className="container section-title" data-aos="fade-up">
+            <span className="subtitle">Approach</span>
+            <h2>LetsCode Approach</h2>
+            <p>Reusable system with the same static template visual direction and behavior.</p>
+          </div>
+
+          <div className="container" data-aos="fade-up" data-aos-delay="100">
+            <div className="row gy-4">
+              {services.map((service, index) => (
+                <div className="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay={100 + index * 100} key={service.title}>
+                  <div className={`service-item ${service.featured ? "featured" : ""}`}>
+                    {service.featured ? <div className="featured-tag">Featured</div> : null}
+                    <div className="icon-wrapper"><i className={`bi ${service.icon}`}></i></div>
+                    <h4>{service.title}</h4>
+                    <p>{service.description}</p>
+                    <a href="#portfolio-tabs" className="read-more"><span>Explore</span><i className="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="portfolio-tabs" className="portfolio section">
+          <div className="container section-title" data-aos="fade-up">
+            <span className="subtitle">Portfolio Tabs</span>
+            <h2>Open Each Person Portfolio</h2>
+            <p>Use these tabs or the navbar dropdown to open each dedicated profile page.</p>
+          </div>
+
+          <div className="container" data-aos="fade-up" data-aos-delay="100">
+            <ul className="portfolio-filters portfolio-person-tabs" data-aos="fade-up" data-aos-delay="200">
+              {portfolioList.map((portfolio, index) => (
+                <li className={index === 0 ? "filter-active" : ""} key={portfolio.slug}>
+                  <a href={`/${portfolio.slug}`}>{portfolio.name}</a>
+                </li>
+              ))}
+            </ul>
+
+            <div className="row gy-4" data-aos="fade-up" data-aos-delay="300">
+              {portfolioList.map((portfolio) => (
+                <div className="col-lg-4 col-md-6" key={portfolio.slug}>
+                  <div className="person-tab-card">
+                    <h4>{portfolio.name}</h4>
+                    <p>{portfolio.headline}</p>
+                    <a className="person-tab-link" href={`/${portfolio.slug}`}>View Portfolio <i className="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="contact section">
+          <div className="container section-title" data-aos="fade-up">
+            <span className="subtitle">Contact</span>
+            <h2>Contact</h2>
+            <p>Reach out for profile updates, onboarding new people, or UI customization.</p>
+          </div>
+
+          <div className="container">
+            <div className="row gy-4">
+              <div className="col-lg-4">
+                <div className="info-item"><div className="icon-wrapper"><i className="bi bi-geo-alt"></i></div><div><h3>Address</h3><p>Kumasi, Ghana</p></div></div>
+                <div className="info-item"><div className="icon-wrapper"><i className="bi bi-telephone"></i></div><div><h3>Call</h3><p>+233 000 000 000</p></div></div>
+                <div className="info-item"><div className="icon-wrapper"><i className="bi bi-envelope"></i></div><div><h3>Email</h3><p>letscode@example.com</p></div></div>
+              </div>
+
+              <div className="col-lg-8">
+                <form action="#" method="post" className="php-email-form">
+                  <div className="row gy-4">
+                    <div className="col-md-6"><input type="text" name="name" className="form-control" placeholder="Your Name" required /></div>
+                    <div className="col-md-6"><input type="email" className="form-control" name="email" placeholder="Your Email" required /></div>
+                    <div className="col-md-12"><input type="text" className="form-control" name="subject" placeholder="Subject" required /></div>
+                    <div className="col-md-12"><textarea className="form-control" name="message" rows="6" placeholder="Message" required></textarea></div>
+                    <div className="col-md-12 text-center">
+                      <div className="loading">Loading</div>
+                      <div className="error-message"></div>
+                      <div className="sent-message">Your message has been sent. Thank you!</div>
+                      <button type="submit">Send Message</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer id="footer" className="footer">
+        <div className="container copyright text-center mt-4">
+          <p>
+            © <span>Copyright</span> <strong className="px-1 sitename">LetsCode</strong>
+            <span> All Rights Reserved</span>
           </p>
         </div>
+      </footer>
 
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="h-auto w-full flex-wrap justify-start gap-1 rounded-xl border border-border/80 bg-card/75 p-2">
-            {categoryTabs.map((tab) => (
-              <TabsTrigger
-                className="rounded-md px-4 py-2 font-nav text-xs uppercase tracking-[0.14em]"
-                key={tab.value}
-                value={tab.value}
-              >
-                {tab.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+      <a href="#" id="scroll-top" className="scroll-top d-flex align-items-center justify-content-center">
+        <i className="bi bi-arrow-up-short"></i>
+      </a>
 
-          {categoryTabs.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value} className="mt-5">
-              <PortfolioGrid category={tab.value} />
-            </TabsContent>
-          ))}
-        </Tabs>
-      </section>
-    </main>
+      <div id="preloader"></div>
+    </>
   );
 }

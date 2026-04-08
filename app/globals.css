@@ -1,74 +1,64 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    --background: 220 35% 7%;
-    --foreground: 214 26% 92%;
-    --card: 218 28% 12%;
-    --card-foreground: 214 26% 92%;
-    --popover: 218 28% 12%;
-    --popover-foreground: 214 26% 92%;
-    --primary: 358 100% 65%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 220 20% 20%;
-    --secondary-foreground: 214 26% 92%;
-    --muted: 216 19% 22%;
-    --muted-foreground: 215 14% 68%;
-    --accent: 23 100% 67%;
-    --accent-foreground: 220 35% 7%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 215 28% 24%;
-    --input: 215 28% 24%;
-    --ring: 358 100% 65%;
-    --radius: 0.9rem;
-  }
-
-  * {
-    @apply border-border;
-  }
-
-  html,
-  body {
-    @apply min-h-full;
-  }
-
-  body {
-    @apply bg-background bg-template-glow text-foreground font-sans;
-  }
-
-  a {
-    @apply text-inherit no-underline;
-  }
+* {
+  box-sizing: border-box;
 }
 
-@layer components {
-  .template-subtitle {
-    @apply font-nav text-[0.72rem] uppercase tracking-[0.18em] text-primary;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
 
-  .template-title {
-    @apply font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl;
-  }
+.portfolio-person-tabs li a {
+  color: inherit;
+  display: block;
+  line-height: 1;
+}
 
-  .template-panel {
-    @apply rounded-3xl border border-border/80 bg-card/65 backdrop-blur;
-  }
+.letscode-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--surface-color), transparent 35%);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 35%);
+}
 
-  .hero-overlay {
-    background: linear-gradient(
-      116deg,
-      rgba(6, 8, 10, 0.9) 19%,
-      rgba(6, 8, 10, 0.58) 58%,
-      rgba(6, 8, 10, 0.22)
-    );
-  }
+.person-tab-card {
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+  border-radius: 16px;
+  padding: 20px;
+  height: 100%;
+  transition: 0.3s;
+}
 
-  .grid-mask {
-    background-size: 26px 26px;
-    mask-image: radial-gradient(circle at center, black 41%, transparent 84%);
-    -webkit-mask-image: radial-gradient(circle at center, black 41%, transparent 84%);
-  }
+.person-tab-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 35%);
+}
+
+.person-tab-card h4 {
+  margin-bottom: 8px;
+}
+
+.person-tab-card p {
+  margin-bottom: 14px;
+}
+
+.person-tab-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.person-tab-link:hover {
+  color: color-mix(in srgb, var(--accent-color), white 20%);
 }
