@@ -1,36 +1,5 @@
 export const teamMembers = [
   {
-    slug: "bright-adu-kwarteng-snr",
-    name: "Bright Adu Kwarteng Snr",
-    role: "Technical Lead",
-    location: "Ghana",
-    linkedin: "https://www.linkedin.com/in/bright-adu-kwarteng-snr/",
-    image: "/images/profiles/bright.webp",
-    bio: "Bright leads the technical arm at LetsCode with a sharp focus on system reliability, team coordination, and delivering production-ready software. His background in operations gives him a unique edge in managing cross-functional workflows and keeping projects on track from architecture to deployment.",
-    expertise: [
-      "Project Management",
-      "System Architecture",
-      "DevOps",
-      "Team Leadership",
-      "Technical Documentation"
-    ],
-    stack: ["Node.js", "Python", "Docker", "Git", "Linux"],
-    projects: [
-      {
-        title: "Internal Ops Dashboard",
-        description: "A centralized dashboard for tracking team velocity, deployment status, and sprint progress across all active projects."
-      },
-      {
-        title: "Service Desk Automation",
-        description: "Built an automated triage system that routes support tickets to the right engineer based on issue classification."
-      },
-      {
-        title: "CI/CD Pipeline Setup",
-        description: "Designed and deployed continuous integration pipelines for three client projects, reducing deployment errors by 60%."
-      }
-    ]
-  },
-  {
     slug: "owusu-kenneth",
     name: "Owusu Kenneth",
     role: "Backend Developer",
@@ -67,16 +36,16 @@ export const teamMembers = [
     role: "Full-Stack Developer",
     location: "Howrah, India",
     linkedin: "https://www.linkedin.com/in/abhisumat-kundu/",
-    image: "/images/profiles/abhisumat.webp",
-    bio: "Abhisumat is a community-driven full-stack developer with a passion for building tools that help people learn and grow. Active in the Google Developer Groups (GDG) ecosystem, he combines strong frontend skills with a growing backend expertise. He believes the best software comes from teams that learn together.",
+    image: "/images/profiles/abhisumat.jpeg",
+    bio: "Abhisumat is a multi-passionate full-stack developer and engineering student at MCKV Institute of Engineering, pursuing BTech in CSE. An MLH Diversion 2k25 award winner and GSSOC contributor, he combines strong frontend skills with a growing backend expertise. A 5-star Python and SQL coder on HackerRank and an avid chess player (Rapid 1350 on chess.com), he believes the best software comes from teams that learn together. Beyond code, he is a passionate writer who uses words to inspire, educate, and entertain.",
     expertise: [
       "React & Next.js",
+      "Python & SQL",
       "Node.js APIs",
       "UI/UX Implementation",
-      "Community Building",
-      "Technical Mentoring"
+      "Community Building"
     ],
-    stack: ["React", "Next.js", "JavaScript", "Firebase", "Tailwind CSS"],
+    stack: ["React", "Next.js", "JavaScript", "Python", "Firebase", "Tailwind CSS"],
     projects: [
       {
         title: "Campus Dev Portal",
@@ -151,6 +120,37 @@ export const teamMembers = [
       {
         title: "Client Landing Page",
         description: "Designed and developed a high-conversion landing page for a local business, achieving full mobile responsiveness."
+      }
+    ]
+  },
+  {
+    slug: "bright-kwarteng-senior-adu",
+    name: "Bright Kwarteng Senior Adu",
+    role: "Data Scientist",
+    location: "Ghana",
+    linkedin: "https://www.linkedin.com/in/bright-adu-kwarteng-snr/",
+    image: "/images/profiles/bright-adu.jpeg",
+    bio: "Bright is a Data Scientist and Analyst with a strong background in Computer Engineering. He specializes in Python, SQL, Machine Learning, and Business Intelligence — transforming raw data into actionable insights that drive business growth, optimize operations, and enhance strategic decision-making. A certified Data Analytics Professional from Azubi Africa and Scalework, he is passionate about leveraging AI and machine learning to tackle real-world challenges across healthcare, finance, and supply chain.",
+    expertise: [
+      "Data Science & Analytics",
+      "Machine Learning",
+      "Business Intelligence",
+      "Python & Django",
+      "Data Visualization"
+    ],
+    stack: ["Python", "SQL", "Tableau", "Power BI", "Django", "Excel"],
+    projects: [
+      {
+        title: "Transborder Data Analysis",
+        description: "Conducted comprehensive transborder data analysis and developed a Power BI dashboard using American Bureau of Transportation Statistics datasets, identifying key trends with the potential to optimize transportation routes by 20%."
+      },
+      {
+        title: "E-Commerce Recommendation System",
+        description: "Developing a recommendation system for an e-commerce platform to personalize user experiences and boost sales — projected to increase customer engagement by 30%."
+      },
+      {
+        title: "Predictive Analytics Pipeline",
+        description: "Built end-to-end data pipelines for predictive modeling in supply chain and transportation, enabling data-driven strategic decision-making."
       }
     ]
   }
