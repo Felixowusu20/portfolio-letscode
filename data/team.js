@@ -95,31 +95,31 @@ export const teamMembers = [
   {
     slug: "felix-owusu",
     name: "Felix Owusu",
-    role: "Frontend Developer",
+    role: "Full-Stack Engineer",
     location: "KNUST, Kumasi",
     linkedin: "https://www.linkedin.com/in/felix-owusu-15053a379/",
-    image: "/images/profiles/felix.webp",
-    bio: "Felix is a frontend developer with a growing edge in systems thinking. Studying at KNUST, he builds clean, responsive interfaces with modern frameworks while constantly pushing to understand the full picture — from UI components to deployment workflows. He writes code that people actually want to use.",
+    image: "/images/profiles/felix.jpeg",
+    bio: "Felix is a Chemistry undergraduate at KNUST and a Full-Stack Engineer with a strong frontend focus, building scalable academic and organizational platforms. Skilled in React, Next.js, Node.js, FastAPI, and more, he is currently developing a Student Project Submission Portal for supervisor-student collaboration. Academically grounded in chemistry and materials science, he has growing interests in machine learning and quantum computing, seeking to bridge software, data, and scientific problem solving.",
     expertise: [
-      "React & Next.js",
-      "Responsive Design",
-      "Component Architecture",
-      "JavaScript/TypeScript",
-      "UI Development"
+      "Frontend & Backend Engineering",
+      "API Engineering",
+      "Machine Learning & Data Analytics",
+      "Computational Chemistry",
+      "Quantum Computing"
     ],
-    stack: ["Next.js", "React", "Tailwind CSS", "JavaScript", "Git"],
+    stack: ["React", "Next.js", "Node.js", "FastAPI", "MongoDB", "Python", "C#"],
     projects: [
       {
-        title: "LetsCode Company Website",
-        description: "Architected and built this very website — a Next.js application with individual developer portfolios powered by a shared data layer."
+        title: "Student Project Submission Portal",
+        description: "Developing a collaborative portal for students and supervisors to manage and submit academic projects efficiently."
       },
       {
-        title: "Responsive Component Library",
-        description: "A modular set of reusable UI components with dark theme support, built for consistency across projects."
+        title: "GATHS Management System",
+        description: "Built organizational systems for the Ghana Association of Tourism & Hospitality Students."
       },
       {
-        title: "Client Landing Page",
-        description: "Designed and developed a high-conversion landing page for a local business, achieving full mobile responsiveness."
+        title: "Tertiary Guide Platform",
+        description: "Created a comprehensive platform designed to guide and assist tertiary students throughout their university journey."
       }
     ]
   },
